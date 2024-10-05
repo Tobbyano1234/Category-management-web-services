@@ -1,7 +1,7 @@
 model Category {
-  id        String     @id @default(cuid())
+  id        Int        @id @default(autoincrement())
   name      String     @unique
-  parentId  String?
+  parentId  Int?
   parent    Category?  @relation("CategoryToCategory", fields: [parentId], references: [id])
   children  Category[] @relation("CategoryToCategory")
   createdAt DateTime   @default(now())

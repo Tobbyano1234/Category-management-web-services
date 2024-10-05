@@ -4,6 +4,7 @@ import {
   OnModuleDestroy,
   Logger,
 } from '@nestjs/common';
+import { HealthIndicator, HealthIndicatorResult } from '@nestjs/terminus';
 import { PrismaClient } from '@prisma/client';
 
 @Injectable()
@@ -31,5 +32,26 @@ export class PrismaService
     process.on('beforeExit', async () => {
       await app.close();
     });
+  }
+}
+
+@Injectable()
+export class PrismaHealthIndicator extends HealthIndicator {
+  constructor(private readonly prismaService: PrismaService) {
+    super();
+  }
+
+  async isHealthy(key: string): Promise<HealthIndicatorResult> {
+    try {
+      await this.prismaService.$queryRaw`SELECT 1`;
+      return this.getStatus(key, true, {
+        message: 'Database connection is healthy',
+      });
+    } catch (e) {
+      console.log('error', { e });
+      return this.getStatus(key, false, {
+        message: 'Database connection is not healthy',
+      });
+    }
   }
 }

@@ -1,11 +1,11 @@
 import { SwaggerConfig } from './swagger.interface';
 
 /**
- * Configuration for the swagger UI (found at /api).
+ * Configuration for the swagger UI.
  * Change this to suit your app!
  */
 export const SWAGGER_CONFIG: SwaggerConfig = {
-  title: 'Pass Drill Web Services',
+  title: 'Trustcrow Web Services',
   description: 'api specs',
   version: '1.0',
   tags: [],

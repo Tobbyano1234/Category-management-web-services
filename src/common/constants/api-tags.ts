@@ -1,3 +1,4 @@
 export const apiTags = {
-  category: 'category',
+  health: 'health',
+  categories: 'categories',
 };
